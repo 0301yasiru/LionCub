@@ -1,0 +1,31 @@
+
+
+                                                                                    
+                                                                                    
+  [[red]]YYYYYYY       YYYYYYY[[yellow]]KKKKKKKKK    KKKKKKK[[green]]EEEEEEEEEEEEEEEEEEEEEEYYYYYYY       YYYYYYY
+  [[red]]Y:::::Y       Y:::::Y[[yellow]]K:::::::K    K:::::K[[green]]E::::::::::::::::::::EY:::::Y       Y:::::Y
+  [[red]]Y:::::Y       Y:::::Y[[yellow]]K:::::::K    K:::::K[[green]]E::::::::::::::::::::EY:::::Y       Y:::::Y
+  [[red]]Y::::::Y     Y::::::Y[[yellow]]K:::::::K   K::::::K[[green]]EE::::::EEEEEEEEE::::EY::::::Y     Y::::::Y
+  [[red]]YYY:::::Y   Y:::::YYY[[yellow]]KK::::::K  K:::::KKK[[green]]  E:::::E       EEEEEEYYY:::::Y   Y:::::YYY
+  [[red]]   Y:::::Y Y:::::Y   [[yellow]]  K:::::K K:::::K   [[green]]  E:::::E                Y:::::Y Y:::::Y   
+  [[red]]    Y:::::Y:::::Y    [[yellow]]  K::::::K:::::K    [[green]]  E::::::EEEEEEEEEE       Y:::::Y:::::Y    
+  [[red]]     Y:::::::::Y     [[yellow]]  K:::::::::::K     [[green]]  E:::::::::::::::E        Y:::::::::Y     
+  [[red]]      Y:::::::Y      [[yellow]]  K:::::::::::K     [[green]]  E:::::::::::::::E         Y:::::::Y      
+  [[red]]       Y:::::Y       [[yellow]]  K::::::K:::::K    [[green]]  E::::::EEEEEEEEEE          Y:::::Y       
+  [[red]]       Y:::::Y       [[yellow]]  K:::::K K:::::K   [[green]]  E:::::E                    Y:::::Y       
+  [[red]]       Y:::::Y       [[yellow]]KK::::::K  K:::::KKK[[green]]  E:::::E       EEEEEE       Y:::::Y       
+  [[red]]       Y:::::Y       [[yellow]]K:::::::K   K::::::K[[green]]EE::::::EEEEEEEE:::::E       Y:::::Y       
+  [[red]]    YYYY:::::YYYY    [[yellow]]K:::::::K    K:::::K[[green]]E::::::::::::::::::::E    YYYY:::::YYYY    
+  [[red]]    Y:::::::::::Y    [[yellow]]K:::::::K    K:::::K[[green]]E::::::::::::::::::::E    Y:::::::::::Y    
+  [[red]]    YYYYYYYYYYYYY    [[yellow]]KKKKKKKKK    KKKKKKK[[green]]EEEEEEEEEEEEEEEEEEEEEE    YYYYYYYYYYYYY    
+                                                                                    
+       [[blue]]                                                                             
+               __ _  ____  _  _        __     __    ___   ___  ____  ____  
+              (  / )(  __)( \/ )      (  )   /  \  / __) / __)(  __)(  _ \
+               )  (  ) _)  )  /       / (_/\(  O )( (_ \( (_ \ ) _)  )   / 
+              (__\_)(____)(__/        \____/ \__/  \___/ \___/(____)(__\_)  [[white]]
+
+                     Version: 1.0.0.0     Release Date: 12-APR-2020 [[reset]]
+                           BY Yasiru Senerath Karunanayaka
+
+

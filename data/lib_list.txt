@@ -1,0 +1,5 @@
+mysql-connector==2.2.9
+PyInstaller==3.6
+pynput==1.6.8
+terminaltables==3.1.0
+virtualenv==20.0.15
