@@ -92,7 +92,7 @@ def main():
 
         else:
             print(command)
-            print(colors.Red + '[-]Invalid command' + colors.RESET)
+            print(colors.Red + '[✘]Invalid command' + colors.RESET)
 
 
 

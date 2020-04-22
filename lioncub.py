@@ -69,7 +69,7 @@ def main():
             pass
 
         else:
-            print(colors.Red + "[-]Invalid Command use 'help' command to view help" + colors.RESET)
+            print(colors.Red + "[✘]Invalid Command use 'help' command to view help" + colors.RESET)
 
     
 main()
