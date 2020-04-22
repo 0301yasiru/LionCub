@@ -71,5 +71,10 @@ def main():
         else:
             print(colors.Red + "[✘]Invalid Command use 'help' command to view help" + colors.RESET)
 
-    
-main()
+
+if __name__ == "__main__":
+    try:
+        main()
+    except KeyboardInterrupt:
+        print(colors.Green + '\n[✓] Lion Cub quits' + colors.RESET, end='\n\n\n')
+        exit(0)
