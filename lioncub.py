@@ -2,10 +2,11 @@ from terminaltables import AsciiTable
 from os.path import dirname, realpath
 from libs.colors import COLORS
 from os import system
-
+from libs.logo import PrintLogo
 
 colors = COLORS()
 program_path = dirname(realpath(__file__))
+graphic_printer = PrintLogo(program_path)
 activated_option = [f'{colors.Red}@{colors.RESET}LionCub']
 
 global_dict = {
@@ -45,6 +46,7 @@ def main():
     global program_path
 
     system('clear')
+    graphic_printer.print()
 
     while True:
         # Input the command

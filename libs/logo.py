@@ -3,17 +3,14 @@
 class PrintLogo:
     def __init__(self, program_path):
         self.program_path = program_path
-        self.COLORS = {\
-        "black":"\u001b[30;1m",
-        "red": "\u001b[31;1m",
-        "green":"\u001b[32m",
-        "yellow":"\u001b[33;1m",
-        "blue":"\u001b[34;1m",
-        "magenta":"\u001b[35m",
-        "cyan": "\u001b[36m",
+        self.COLORS = {
         "white":"\u001b[37m",
         "reset":"\u001b[0m",
-        "uline": '\u001b[4m'
+        "bold": "\u001b[1m",
+        "hair": "\u001b[38;5;11m",
+        "face": "\u001b[38;5;208m",
+        "eye": "\u001b[38;5;31m",
+        "lion": "\u001b[38;5;124m"
         }
 
     
