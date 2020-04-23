@@ -1,4 +1,4 @@
-from libs.backdoor.client import Backdoor
+from client import Backdoor
 from time import sleep
 from mysql.connector import connect
 from uuid import getnode as getmac
