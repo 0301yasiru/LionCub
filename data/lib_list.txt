@@ -1,3 +1,4 @@
+requests==2.22.0
 mysql-connector==2.2.9
 PyInstaller==3.6
 pynput==1.6.8
