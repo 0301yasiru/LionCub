@@ -215,4 +215,43 @@ logo_printer.print()
 
 
 try:
-    if argv[1] == '--c
+    if argv[1] == '--configure-mysql':
+        call('clear', shell=True)
+        logo_printer.print()
+        configure_mysql()
+
+    elif argv[1] == '--configure-venv':
+        call('clear', shell=True)
+        logo_printer.print()
+        create_virtual_env()
+
+    elif argv[1] == '--help':
+        logo_printer.print_help()
+
+    else:
+        print(colors.Red + '[✘]Incorrect argument')
+        exit(0)
+
+except IndexError:
+
+    # checkigng for depencies
+    print(colors.Yellow + colors.BOLD + '\n[!]Checking For dependencies\n' + colors.RESET)
+    not_installed = check_for_dependency()
+
+    # installing missing packages
+    if len(not_installed) > 0:
+        print(colors.Yellow + colors.BOLD + '\n\n[!]Installing missing dependencies\n' + colors.RESET)
+        install_packages(not_installed)
+
+    else:
+        check_list['Installed missing dependencies'] = 'Already Installed'
+
+    # creating virtual environment
+    create_virtual_env()
+
+    # configure mysql data base credenetials
+    print(colors.Yellow + colors.BOLD + '\n\n[!]Configure online MYSQL Database credentials\n' + colors.RESET)
+    configure_mysql()
+
+    # printing the summery
+    print_configuration_report()
