@@ -172,13 +172,16 @@ def activate_generation(program_path):
 
         # if the command is set then update the settings wales
         elif command.split()[0] == 'set':
-            setting = command.split()[1]
-            new_value = command.split()[2]
-            saved_inputs_dict = update_setting(setting, new_value, saved_inputs_dict)
+            try:
+                setting = command.split()[1]
+                new_value = command.split()[2]
+                saved_inputs_dict = update_setting(setting, new_value, saved_inputs_dict)
+            except IndexError:
+                print(colors.Red + "[✘]Invalid Syntax use 'help' command to view the help guide" + colors.RESET)
 
         # if the command is non of above it is a unreconised command
         else:
-            print(colors.Red + '[✘]Invalid command' + colors.RESET)
+            print(colors.Red + "[✘]Invalid command use 'help' to view help guide" + colors.RESET)
 
 
 activate_generation(program_path)
