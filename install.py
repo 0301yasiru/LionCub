@@ -17,16 +17,18 @@ program_path = dirname(realpath(__file__))
 logo_printer = PrintLogo(program_path)
 devnull = open(devnull, 'w')
 dependencies = []
+dependencies2 = []
 
 def execfile_y(file_name, globals_variables):
     exec(compile(open(file_name, "rb").read(), file_name, 'exec'), globals_variables)
 
 
-def check_for_dependency():
+def check_for_dependency(file_name):
     # Open the file contains dependencies
     not_installed = []
     global program_path
-    with open(f'{program_path}/data/lib_list.txt', 'r') as lib_list:
+
+    with open(f'{program_path}/data/{file_name}.txt', 'r') as lib_list:
         while True:
             data_line = lib_list.readline()
             if not data_line:
@@ -39,7 +41,14 @@ def check_for_dependency():
 
             if len(dependancy) > 0:
                 global dependencies
-                dependencies.append(dependancy)
+                global dependencies2
+
+                if file_name == 'lib_list':
+                    dp = dependencies
+                else:
+                    dp = dependencies2
+
+                dp.append(dependancy)
                 try:
                     if dependancy == 'mysql-connector':
                         dependancy_edit = 'mysql'
@@ -61,13 +70,13 @@ def check_for_dependency():
     return not_installed
 
 
-def install_packages(packages):
+def install_packages(packages, version='3'):
     global check_list
     global devnull
     try:
         for item in packages:
             print(colors.Cyan + f'[!]Installing {item} .......' + colors.RESET)
-            check_output('pip3 install {}'.format(item), shell=True, stderr=devnull)
+            check_output('pip{} install {}'.format(version, item), shell=True, stderr=devnull)
             print(colors.Green + f'[✓]Successfully installed {item}')
         check_list['Installed missing dependencies'] = True
     
@@ -81,8 +90,9 @@ def create_virtual_env():
     global devnull
     global check_list
     global dependencies
+    global dependencies2
 
-    print(colors.Yellow + colors.BOLD + '\n\n[!]Creating Virutual environment for compiling the program\n' + colors.RESET)
+    print(colors.Yellow + colors.BOLD + '\n\n[!]Creating Virutual environments for compiling the program\n' + colors.RESET)
     try:
         # CREATING VENV DIRECTORY
 
@@ -95,8 +105,11 @@ def create_virtual_env():
         print(colors.Green + '[✓]venv Folder created..' + colors.RESET)
 
         # creating virtula environment
-        check_output('virtualenv venv', shell=True, stderr=devnull)
-        print(colors.Green + '[✓]Virtual environment created successfully' + colors.RESET)
+        check_output('python3 -m virtualenv venv', shell=True, stderr=devnull)
+        print(colors.Green + '[✓]Virtual environment created for python3 successfully' + colors.RESET)
+        check_output('python2 -m virtualenv venv', shell=True, stderr=devnull)
+        print(colors.Green + '[✓]Virtual environment created for python2 successfully' + colors.RESET)
+ 
 
         # activating virtual environment
         venv_file_path = program_path + '/venv/bin/activate_this.py'
@@ -106,8 +119,14 @@ def create_virtual_env():
         # install packages inside virtual environment
         for package in dependencies:
             if package != 'virtualenv':
-                check_output(f'pip install {package}', shell=True)
+                check_output(f'pip3 install {package}', shell=True)
                 print(colors.Green + f'[✓]Successfully installed package {colors.BOLD}{colors.ULINE}{package}' + colors.RESET)
+
+        for package in dependencies2:
+            if package != 'virtualenv':
+                check_output(f'pip2 install {package.split("=")[0]}', shell=True)
+                print(colors.Green + f'[✓]Successfully installed package {colors.BOLD}{colors.ULINE}{package}' + colors.RESET)
+
 
         check_list['Virtual Environment Creation'] = True
 
@@ -236,12 +255,17 @@ except IndexError:
 
     # checkigng for depencies
     print(colors.Yellow + colors.BOLD + '\n[!]Checking For dependencies\n' + colors.RESET)
-    not_installed = check_for_dependency()
+    python3_not_installed = check_for_dependency('lib_list')
+    python2_not_installed = check_for_dependency('lib_list2')
 
     # installing missing packages
-    if len(not_installed) > 0:
-        print(colors.Yellow + colors.BOLD + '\n\n[!]Installing missing dependencies\n' + colors.RESET)
+    if len(python3_not_installed) > 0:
+        print(colors.Yellow + colors.BOLD + '\n\n[!]Installing missing dependencies Python3\n' + colors.RESET)
         install_packages(not_installed)
+
+    if len(python2_not_installed) > 0:
+        print(colors.Yellow + colors.BOLD + '\n\n[!]Installing missing dependencies Python2\n' + colors.RESET)
+        install_packages(not_installed, version='')
 
     else:
         check_list['Installed missing dependencies'] = 'Already Installed'

