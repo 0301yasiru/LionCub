@@ -76,9 +76,10 @@ def main():
                     try:
                         activated_option.append(f'/{using_option}')
                         execfile_y(f'sub_frames/{using_option}.py', global_dict)
-                    except:
+                    except Exception as error:
                         activated_option.remove(f'/{using_option}')
                         print(colors.Red + "[✘]Invalid option" + colors.RESET)
+                        print(colors.Red + "[✘]Error: {}".format(error) + colors.RESET)
         
                 else:
                    print(colors.Red + "[✘]Invalid Command use 'help' command to view help" + colors.RESET) 
