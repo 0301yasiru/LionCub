@@ -80,7 +80,7 @@ def main():
 
         # if the command is exit or quit breake the progrm
         elif command == 'quit' or command == 'exit':
-            activated_option.remove('/KeyLogger')
+            activated_option.remove('/keylogger')
             break
 
         elif command == 'help':

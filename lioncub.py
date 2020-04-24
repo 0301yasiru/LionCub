@@ -55,14 +55,6 @@ def main():
         if command == 'options' or command == 'show options':
             print_main_options()
 
-        elif command == 'use keylogger':
-            activated_option.append('/KeyLogger')
-            execfile_y('sub_frames/keylogger.py', global_dict)
-
-        elif command == 'use backdoor':
-            activated_option.append('/Backdoor')
-            execfile_y('sub_frames/backdoor.py', global_dict)
-
         elif command == 'exit' or command == 'quit':
             break
 
@@ -73,7 +65,25 @@ def main():
             pass
 
         else:
-            print(colors.Red + "[✘]Invalid Command use 'help' command to view help" + colors.RESET)
+
+            try:
+                command = command.split()
+
+                if command[0] == 'use':
+                    using_option = command[1]
+
+                    try:
+                        activated_option.append(f'/{using_option}')
+                        execfile_y(f'sub_frames/{using_option}.py', global_dict)
+                    except:
+                        activated_option.remove(f'/{using_option}')
+                        print(colors.Red + "[✘]Invalid option" + colors.RESET)
+        
+                else:
+                   print(colors.Red + "[✘]Invalid Command use 'help' command to view help" + colors.RESET) 
+
+            except:
+                print(colors.Red + "[✘]Invalid Command use 'help' command to view help" + colors.RESET)
          
             
 if __name__ == "__main__":
