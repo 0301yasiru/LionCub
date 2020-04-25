@@ -26,7 +26,8 @@ def print_main_options():
     options = {
         'keylogger': 'You can generate and pull information from keyloggers',
         'backdoor': 'You can generate and listen to tcp reverse shells',
-        'wpa2': 'You can capture handshakes and crack them'
+        'wpa2': 'You can capture handshakes and crack them',
+        'spoofing': 'You can run ARP, DNS, Packet sniffing, Code Injection'
     }
 
     table_data = [[colors.BOLD + 'Option', colors.BOLD + 'Description' + colors.RESET]]

