@@ -20,7 +20,7 @@ If you have your database credentials you can proceed to installation of LionCub
  <br>`cd /opt/`
  2. Clone the git repository to your folder and navigate into it
   <br>`git clone https://github.com/0301yasiru/LionCub.git`
-  `cd LionCub`
+  <br>`cd LionCub`
  3. Install the framework using the installation script
   <br>`python3 install.py`
  4. Start the LionCub framework
