@@ -261,11 +261,11 @@ except IndexError:
     # installing missing packages
     if len(python3_not_installed) > 0:
         print(colors.Yellow + colors.BOLD + '\n\n[!]Installing missing dependencies Python3\n' + colors.RESET)
-        install_packages(not_installed)
+        install_packages(python3_not_installed)
 
     if len(python2_not_installed) > 0:
         print(colors.Yellow + colors.BOLD + '\n\n[!]Installing missing dependencies Python2\n' + colors.RESET)
-        install_packages(not_installed, version='')
+        install_packages(python2_not_installed, version='')
 
     else:
         check_list['Installed missing dependencies'] = 'Already Installed'
