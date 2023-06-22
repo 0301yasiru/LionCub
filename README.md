@@ -1,31 +1,35 @@
 # LionCub Framework
-## What is it actually?
-LionCub Framework is a powerful but simple hacking framework, designed for beginners. It allows you to generate TCP back-doors and key-loggers with its python3 source code. Not only that but also you can interact with hacked computer and gain full control. At the same time, this framework can automate whole WPA2 WiFi cracking procedure (configure wireless adapter, list down APs, de-authentication ...) and you can run ARP spoofing attacks like MITM, sniffing data, DNS spoofing, packet injection, JS code injection and MAC address spoofing attacks.
+
+## What is it, actually?
+LionCub Framework is a powerful yet user-friendly hacking framework designed specifically for beginners. It enables users to generate TCP backdoors and keyloggers using its Python 3 source code. Moreover, it provides the ability to interact with compromised computers and gain complete control. Additionally, this framework automates the entire WPA2 WiFi cracking procedure, including wireless adapter configuration, AP listing, de-authentication, and more. It also supports ARP spoofing attacks such as MITM, data sniffing, DNS spoofing, packet injection, JS code injection, and MAC address spoofing attacks.
+
 > **Pssst!!!**
-> *These back doors and key-loggers are very unique. Because these back-doors are completely independent from your public IP address! So you will have a persistent connection to the victim no matter how many times your routers IP has changed*
+> *These backdoors and keyloggers are highly unique, as they operate independently from your public IP address. Thus, you will maintain a persistent connection with the victim, regardless of how many times your router's IP changes.*
 
 ## Can you remain anonymous while using it?
-Well, it really depends on the way you use it. You can use same old methods to cover your tracks. But since it uses an online MySQL service it may leave some traces! You can use face identities, VPN and onion routing to solve these problems.
+Well, it largely depends on how you employ the framework. You can utilize traditional methods to cover your tracks. However, since it employs an online MySQL service, there may be some traces left behind. To address this concern, you can employ fake identities, VPNs, and onion routing.
 
 ## How to install LionCub?
-Installation process is fairly simple. But you must have a online MySQL database in order to completely configure this framework!! Here are some few ways to get online database,
+The installation process is relatively simple. However, you must have an online MySQL database in order to fully configure this framework. Here are a few ways to acquire an online database:
 
- - Create a free account on remotemysql.com (recommended)
- - Use your payed database on any hosting service
- - Use your apache server with port forwarding (not recommended: some features will not work)
+1. Create a free account on remotemysql.com (recommended).
+2. Use your paid database on any hosting service.
+3. Utilize your Apache server with port forwarding (not recommended, as some features may not work).
 
-If you have your database credentials you can proceed to installation of LionCub.
+Once you have your database credentials, you can proceed with the installation of LionCub using the following steps:
 
- 1. Fire up your Kali Linux machine and go to any folder you want to install. (I use opt folder..)
- <br>`cd /opt/`
- 2. Clone the git repository to your folder and navigate into it
-  <br>`git clone https://github.com/0301yasiru/LionCub.git`
-  <br>`cd LionCub`
- 3. Install the framework using the installation script
-  <br>`python3 install.py`
- 4. Start the LionCub framework
-  <br>`python3 lioncub.py`
+1. Launch your Kali Linux machine and navigate to the desired installation folder (e.g., `/opt/`).
+   - `cd /opt/`
 
-If you want to reconfigure or configure MySQL database setting in the framework you can use the command below.
-<br>`python3 install.py --configure-mysql`
+2. Clone the Git repository into your chosen folder and navigate into it.
+   - `git clone https://github.com/0301yasiru/LionCub.git`
+   - `cd LionCub`
 
+3. Install the framework using the installation script.
+   - `python3 install.py`
+
+4. Start the LionCub framework.
+   - `python3 lioncub.py`
+
+If you need to reconfigure or modify the MySQL database settings within the framework, you can use the following command:
+- `python3 install.py --configure-mysql`
