@@ -1,6 +1,6 @@
-# LionCub Framework
-
 ![LionCub Screenshot](https://github.com/0301yasiru/LionCub/blob/master/data/lioncub.jpg)
+
+# LionCub Framework
 
 ## What is it, actually?
 LionCub Framework is a powerful yet user-friendly hacking framework designed specifically for beginners. It enables users to generate TCP backdoors and keyloggers using its Python 3 source code. Moreover, it provides the ability to interact with compromised computers and gain complete control. Additionally, this framework automates the entire WPA2 WiFi cracking procedure, including wireless adapter configuration, AP listing, de-authentication, and more. It also supports ARP spoofing attacks such as MITM, data sniffing, DNS spoofing, packet injection, JS code injection, and MAC address spoofing attacks.
